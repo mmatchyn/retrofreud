@@ -1,4 +1,10 @@
+# Virtualevn specific
 .Python
 bin/
 include/
 lib/
+
+# Django specific
+**/settings.py
+*.db
+*.pyc
