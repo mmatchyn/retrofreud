@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+ 
+ 
+{% block title %} Issue Archive {% endblock %}
+
+{% block navbar %}
+        <ul class="nav nav-pills">
+          <li>
+            <a href="/">Home</a>
+          </li>
+          <li class="active"><a href="/issues/">Retro</a></li>
+          <li><a href="/moodmeter/">Moodmeter</a></li>
+        </ul>
+
+{% endblock %}
+
+{% block content %}
+	<h1>Retro Issue Archive</h1>
+	
+	<div id="container">
+
+		{% for issue in issues %}
+		<div class="issue">
+				<a {% if issue.solved %}class="solved"{% endif %} href="/issues/{{issue.id}}/">
+				<div class="issue-info" href="/issues/{{issue.id}}/">
+				<span><input type="checkbox" {% if issue.solved %}checked{% endif %}/>&nbsp;</span>
+				<div class="issue-title">{{issue.title}}</div>
+				<div class="issue-details">
+				<small><time datetime="{{issue.created|date:"c"}}">
+				{{issue.created|date}}
+				</time></small></div>
+			</div> <!-- .issue-info -->
+			</a>
+			<div class="issue-nav"> 
+			<button class="btn btn-small" onclick="vote({{issue.id}},1);">&nbsp;+&nbsp;</button> <button class="btn btn-small" onclick="vote({{issue.id}},-100);">&nbsp;0&nbsp;</button> 
+			<button class="btn btn-small" onclick="vote({{issue.id}},-1);">&nbsp;-&nbsp;</button> &nbsp;<span class="issue-count">{{issue.votes}}</span> </div>
+		</div> <!-- .issue -->
+		{% endfor %}
+
+
+	</div> <!-- .container -->
+{% endblock %}
+

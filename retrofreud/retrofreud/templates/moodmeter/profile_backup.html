@@ -1,0 +1,112 @@
+{% extends 'moodmeter/index.html' %}
+ 
+{% block head %}
+ <script src="/static/js/raphael-min.js"></script>
+<script src="/static/js/g.raphael.js"></script>
+<script src="/static/js/g.bar-min.js"></script>
+
+<script>
+
+	function init_mood_graph() {
+
+		var r = Raphael("holder_mood", 250, 250),
+                    fin = function () {
+                        this.flag = r.popup(this.bar.x, this.bar.y, this.bar.value || "0").insertBefore(this);
+                    },
+                    fout = function () {
+                        this.flag.animate({opacity: 0}, 300, function () {this.remove();});
+                    },
+                    fin2 = function () {
+                        var y = [], res = [];
+                        for (var i = this.bars.length; i--;) {
+                            y.push(this.bars[i].y);
+                            res.push(this.bars[i].value || "0");
+                        }
+                        this.flag = r.popup(this.bars[0].x, Math.min.apply(Math, y), res.join(", ")).insertBefore(this);
+                    },
+                    fout2 = function () {
+                        this.flag.animate({opacity: 0}, 100, function () {this.remove();});
+                    },
+                    txtattr = { font: "12px chunkfiveroman" };
+			
+					redraw = function() {
+
+					}
+                
+                var chart = r.hbarchart(0, 0, 120, 170, [{{profile.happiness}}, {{profile.excitement}}, {{profile.tiredness}},{{profile.sadness}}, {{profile.boredom}}],{type:'round'});
+				chart.hover(fin, fout);
+	};
+
+	function update_mood_graph() {
+		console.log('should update graph...');	
+	}
+ 
+	window.onload = function () {
+		init_mood_graph();
+				
+	};
+
+		
+
+        </script>
+{% endblock %}
+{% block title %}{{profile.title}}{% endblock %}
+ 
+{% block content %}
+
+<div class="row">
+<div class="span8">
+<h1>{{profile.title}}</h1>
+		<p>
+			Created on
+			<time datetime="{{profile.created|date:"c"}}">
+			{{profile.created|date}}
+			</time>
+		</p>
+
+</div>
+<div class="span4"></div>
+</div> <!-- ./row -->
+<div class="row">
+<div class="span4">
+<h2>Mood detector</h2>
+		<div id="mood-meter">
+		{% include "moodmeter/profile_ajax.html" %}
+		</div><!-- ./mood-meter -->
+
+</div>
+<div class="span4">
+	<h2>Mood meter</h2>
+	<div id="holder_mood"></div>
+</div>
+<div class="span4"></span>
+</div> <!-- ./row -->
+</div>
+
+<div class="row">
+	<div class="span4">
+	<h2>Retro evaluation</h2>
+		<div id="thumb-meter">
+			<div id="thumb-score">
+			{% include "moodmeter/profile_thumb_ajax.html" %}
+			</div>
+			<button class="btn btn-large btn-warning" onclick="add_thumb({{profile.id}},-1)">Thumbs down</button>
+			<button class="btn btn-large btn-success" onclick="add_thumb({{profile.id}}, 1)">Thumbs up</button> 
+		</div>
+
+		<h3>Improvement suggestions?</h3>
+		<div>
+		{{profile.improvements}}
+		</div>
+	</div>
+	<div class="span4">
+		<div id="holder_thumb"></div>
+	</div>
+	<div class="span4">
+	</div>
+</div>
+		
+
+
+{% endblock %}
+

@@ -1,0 +1,222 @@
+
+@font-face {
+    font-family: 'chunkfiveroman';
+    src: url('/static/css/chunkfive-webfont.eot');
+    src: url('/static/css/chunkfive-webfont.eot?#iefix') format('embedded-opentype'),
+         url('/static/css/chunkfive-webfont.woff') format('woff'),
+         url('/static/css/chunkfive-webfont.ttf') format('truetype'),
+         url('/static/css/chunkfive-webfont.svg#chunkfiveroman') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'dayposterblackregular';
+    src: url('/static/css/daypbl__-webfont.eot');
+    src: url('/static/css/daypbl__-webfont.eot?#iefix') format('embedded-opentype'),
+         url('/static/css/daypbl__-webfont.woff') format('woff'),
+         url('/static/css/daypbl__-webfont.ttf') format('truetype'),
+         url('/static/css/daypbl__-webfont.svg#dayposterblackregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+
+@font-face {
+    font-family: 'comfortaabold';
+    src: url('comfortaa_bold-webfont.eot');
+    src: url('comfortaa_bold-webfont.eot?#iefix') format('embedded-opentype'),
+         url('comfortaa_bold-webfont.woff') format('woff'),
+         url('comfortaa_bold-webfont.ttf') format('truetype'),
+         url('comfortaa_bold-webfont.svg#comfortaabold') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+
+@font-face {
+    font-family: 'comfortaaregular';
+    src: url('comfortaa_regular-webfont.eot');
+    src: url('comfortaa_regular-webfont.eot?#iefix') format('embedded-opentype'),
+         url('comfortaa_regular-webfont.woff') format('woff'),
+         url('comfortaa_regular-webfont.ttf') format('truetype'),
+         url('comfortaa_regular-webfont.svg#comfortaaregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+
+
+
+@font-face {
+    font-family: 'comfortaathin';
+    src: url('comfortaa_thin-webfont.eot');
+    src: url('comfortaa_thin-webfont.eot?#iefix') format('embedded-opentype'),
+         url('comfortaa_thin-webfont.woff') format('woff'),
+         url('comfortaa_thin-webfont.ttf') format('truetype'),
+         url('comfortaa_thin-webfont.svg#comfortaathin') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+
+body{
+	background:#72b6a1 url('/static/img/so_retro.jpg') no-repeat 50% 2%;
+}
+
+#content {
+    margin-left: 30px;
+}
+
+body, button, textarea, input{
+	color: #2e2e2e;
+	font-family: 'comfortaaregular';
+}
+
+h1{
+	font-family: 'dayposterblackregular';
+}
+
+h2 {font: 18px 'chunkfiveroman';
+}
+
+h3 {font-size: 16px ;
+}
+
+
+div#navbar{
+	border-bottom: 1px solid #efefef;
+	background-color: #B57287;
+	padding-left: 50px;
+	padding-top: 20px;
+}
+
+.container {
+    background-color: transparent;
+    padding: 2%;
+    margin-left: 28px  auto;
+}
+
+.issue-info {
+    font-size:18px;
+	border-bottom: 1px solid #efefef;
+}
+
+.issue-title, .issue-info, .issue-details, .issue-nav {
+	display: inline-block;
+}
+
+.issue-title {
+	width: 350px;
+}
+
+.issue-count{
+	font-family: 'chunkfiveroman';
+}
+
+.issue a {
+	text-decoration: none;
+	color: #FFFFCC;
+}
+
+.issue-details {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding:3px;
+    font-size: 16px;
+}
+
+.issue-status {
+	font-family: 'comfortaabold';
+
+}
+
+.issue-date{
+    color: #f6e3bb;
+    font-style: italic;
+    border-bottom: 1px solid #f6e3bb;
+}
+
+.issue a.solved {
+	color:#efefef;
+	font-style: italic;
+}
+
+.nav-pills > .active > a, .nav-pills > .active > a:hover, .nav-pills > .active > a:focus {
+	background-color: #87B572;
+}
+
+.nav-pills > li > a {
+	color:#5a0117;
+	border: 1px solid #E0F5BA;
+	background-color: #f6e3bb;
+	padding-top: 8px;
+	padding-bottom: 8px;
+	margin-top: 2px;
+	margin-bottom: 2px;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+}
+
+#mood-meter table td {
+    padding: 3px;
+    margin: 3px;
+}
+
+#mood-meter table td button {
+    font-size: 16px;
+}
+
+.table td.buttons {
+    text-align: right;
+}
+
+
+.mood-profile {
+    display: inline-block;
+    font-size:18px;
+    width: 200px;
+}
+
+.mood {
+    display: inline-block;
+    width: 20px;
+    text-align: center;
+}
+
+.moodscore{
+    visibility: hidden;
+}
+
+#thumbs-score {
+    visibility: hidden;
+}
+
+.positive {
+    color: #000;
+    background-color: #CCFB5D;
+}
+
+.neutral {
+    color: #000;
+    background-color: #EBF4FA;
+}
+
+.negative {
+    color: #000;
+    background-color: #E55451;
+}
+
+#suggestions {
+    min-height: 50px;
+    padding:5px;
+    background-color: rgba(239,206,103,0.5);
+    overflow: auto;
+    margin-bottom:5px;
+    border:1px solid #f6e3bb;
+}

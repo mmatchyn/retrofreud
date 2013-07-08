@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+  
+{% block title %} Mood Meter {% endblock %}
+
+{% block head %} 
+
+{% endblock %}
+
+
+{% block navbar %}
+        <ul class="nav nav-pills">
+          <li>
+            <a href="/">Home</a>
+          </li>
+          <li><a href="/issues/">Retro</a></li>
+          <li class="active"><a href="/moodmeter/">Moodmeter</a></li>
+        </ul>
+
+{% endblock %}
+
+{% block content %}
+	<h1>MoodMeter</h1>
+
+	<div>Add default mood profile (excited, happy, ok, sad, tired), show positive/negative moodmeter from last session</div> 
+
+	<div id="container">
+
+	{% for profile in profiles %}
+	<div class="issue">
+    <a href="/moodmeter/{{profile.id}}/">
+			<div class="issue-info">
+			<div class="issue-title">{{profile.title}}</div>
+			<div class="issue-details">
+			<small><time datetime="{{profile.created|date:"c"}}">
+			{{profile.created|date}}
+			</time></small></div>
+		</div> <!-- .issue-info -->
+    </a>
+    <div class="mood-profile">
+           <span class="mood positive">{{profile.get_positivity}}</span>
+           <span class="mood neutral">{{profile.get_neutrality}}</span>
+           <span class="mood negative">{{profile.get_negativity}}</span>
+    </div>
+	</div> <!-- .issue -->
+	{% endfor %}
+
+</div> <!-- .container -->
+{% endblock %}

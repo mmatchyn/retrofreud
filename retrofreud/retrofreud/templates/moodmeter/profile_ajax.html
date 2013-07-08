@@ -1,0 +1,24 @@
+
+<table class="table">
+		<tr>
+			<td>Happy, ok, fine?</td>
+			<td><span id="happy_score" class="moodscore">{{profile.happiness}}</span></td>
+			<td class="buttons"><button class="btn btn-small" onclick="vote_mood({{profile.id}},'happy',-1);">-</button><button class="btn btn-small " onclick="vote_mood({{profile.id}},'happy',1);">+</button></td>
+		</tr><tr>
+			<td>Excited?</td>
+			<td><span id="excited_score" class="moodscore">{{profile.excitement}}</span></td>
+			<td class="buttons"><button class="btn btn-small score" onclick="vote_mood({{profile.id}},'excited',-1);">-</button><button class="btn btn-small " onclick="vote_mood({{profile.id}},'excited',1);">+</button></td>			
+		</tr><tr>			
+			<td>Tired?</td>
+			<td><span id="tired_score" class="moodscore">{{profile.tiredness}}</span></td>
+			<td class="buttons"><button class="btn btn-small score" onclick="vote_mood({{profile.id}},'tired',-1);">-</button><button class="btn btn-small " onclick="vote_mood({{profile.id}},'tired',1);">+</button></td>
+		</tr><tr>			
+			<td>Sad, disappointed?</td>
+			<td><span id="sad_score" class="moodscore">{{profile.sadness}}</span></td>
+			<td class="buttons"><button class="btn btn-small" onclick="vote_mood({{profile.id}},'sad',-1);">-</button><button class="btn btn-small " onclick="vote_mood({{profile.id}},'sad',1);">+</button></td>
+		</tr><tr>			
+		<td>Bored, indifferent?</td>
+		<td><span id="bored_score" class="moodscore">{{profile.boredom}}</span></td>
+		<td class="buttons"><button class="btn btn-small" onclick="vote_mood({{profile.id}},'bored',-1);">-</button><button class="btn btn-small " onclick="vote_mood({{profile.id}},'bored',1);">+</button></td>
+		</tr>
+</table>
