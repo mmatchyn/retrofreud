@@ -17,6 +17,9 @@ class MoodProfile(models.Model):
 	def __unicode__(self):
 		return u'%s' % self.title
 
+	class Meta:
+		ordering = ["-created"]
+
 	def getScores(self):
 		positive = self.happiness + self.excitement
 		neutral = self.boredom

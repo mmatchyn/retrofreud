@@ -1,6 +1,15 @@
 {% extends 'retro/index.html' %}
  
 {% block title %}{{issue.title}}{% endblock %}
+
+{% block head %}
+<script type="text/javascript">
+	$(document).ready(function(){
+		//format suggestions
+		format_text('#suggestions');
+	});
+</script>
+{% endblock head %}
  
 {% block content %}
 
@@ -13,38 +22,48 @@
 <div class="row">
 	<div class="span6">
 		<p class="issue-date">
-			Created on
+			Created:
 			<time datetime="{{profile.created|date:"c"}}">
 			{{issue.created|date}}
+			</time> &nbsp;&nbsp;
+						Changed:
+			<time datetime="{{profile.reissued|date:"c"}}">
+			{{issue.reissued|date}}
 			</time>
+
 		</p>
 	</div>
 </div>
 
 <div class="row">
 	<div class="span6">
-	<div class="issue-details">
+	<p class="issue-desc">
 	{{issue.details}}
-	</div>
+	</p>
 </div>
 </div>
 
 <div class="row">
 	<div class="span6">
-		<h2>Issue solved?</h2>
-		<p><span class="issue-status">{% if issue.solved %}YES!{% else %} Nope. {%endif %}</span></p>
+		<h2>Issue status</h2>
+		<div id="issue-status">
+		{% include 'retro/issue_ajax.html'%}
+		</div>
 	</div>
 </div>
-
+<div class="row">
+	<div class="span6 details">
+	</div>
+	<div class="span6">
+	</div>
+</div>
 <div class="row">
 	<div class="span6">
 	<h2>Actions</h2>
-	<div id="suggestions">
-		{{issue.actions}}
-	</div>
-	
+	<div id="suggestions">{{issue.actions}}</div>
+
 	<div>
-		<a class="btn" data-toggle="modal" href="#improvements">Add actions</a>
+		<button class="btn" data-toggle="modal" href="#improvements">Add actions</button>
 		</div>
 
 		<div id="improvements" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -53,9 +72,8 @@
 		    <h3 id="myModalLabel">Enter actions</h3>
 		  </div>
 		  <div class="modal-body">
-			
 			<form id="retro_actions" name="retro_actions">{% csrf_token %}
-			<textarea id="activities" name="activities" rows=5></textarea>
+			<textarea id="activities" name="activities" rows="10" cols="50">{{issue.actions}}</textarea>
 			</form>
 		  </div>
 		  <div class="modal-footer">
@@ -63,16 +81,9 @@
 		    <button class="btn btn-primary" data-dismiss="modal" onclick="updateActions({{issue.id}})">Save changes</button>
 		  </div>
 		</div>
-
-
-
-
-		<a class="btn btn-small" href="/issues/"> Back</a> &nbsp;&nbsp;
-		<button class="btn btn-success" onclick="close_issue({{issue.id}},1)"> Close!</button> &nbsp;&nbsp;
-		<button class="btn btn-warning" onclick="close_issue({{issue.id}},0)"> Reopen?</button>
 	</div>
 </div>
 
-		
+
 {% endblock %}
 

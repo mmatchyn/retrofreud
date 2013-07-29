@@ -2,14 +2,15 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-     <link href="/static/bootstrap/css/bootstrap.css" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
      <link href="/static/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="/static/css/style.css" />
 
     <script src="/static/js/jquery-1.10.2.min.js"></script>
+    <script src="/static/bootstrap/js/bootstrap.min.js"></script>
     <script src="/static/js/custom.js"></script>
 
-    {% block head %} {% endblock %}
+    {% block head %} {% endblock head %}
 
     <title>{% block title %}RetroFreud{% endblock %}</title>
 </head>
@@ -25,14 +26,12 @@
               <li><a href="/moodmeter/">Moodmeter</a></li>
             </ul>
     {% endblock %}
-    </div>
+    </div> <!-- .navbar -->
 
-    <div id="content" class="containter">
+<div class="container">
         {% block content %}
+
         {% endblock %}
-    </div>
-
-
-    <script src="/static/bootstrap/js/bootstrap.min.js"></script>
+</div>
 </body>
 </html>

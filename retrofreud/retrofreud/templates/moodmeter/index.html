@@ -19,30 +19,18 @@
 {% endblock %}
 
 {% block content %}
-	<h1>MoodMeter</h1>
+<div class="row-fluid">
+	<div class="span8">
+		<h1>MoodMeter</h1>
+	</div> <!-- .span -->
+	<div class="span4">
+	</div>
+</div> <!-- .row -->
+<div class="row-fluid" id="issue_list">
+	<div class="span8 nice-and-round">
+	{% include 'moodmeter/index_ajax.html' %}
+	</div> <!-- ./span 8 -->
+	<div classs="span4"></div>
+</div> <!-- ./outside row -->
 
-	<div>Add default mood profile (excited, happy, ok, sad, tired), show positive/negative moodmeter from last session</div> 
-
-	<div id="container">
-
-	{% for profile in profiles %}
-	<div class="issue">
-    <a href="/moodmeter/{{profile.id}}/">
-			<div class="issue-info">
-			<div class="issue-title">{{profile.title}}</div>
-			<div class="issue-details">
-			<small><time datetime="{{profile.created|date:"c"}}">
-			{{profile.created|date}}
-			</time></small></div>
-		</div> <!-- .issue-info -->
-    </a>
-    <div class="mood-profile">
-           <span class="mood positive">{{profile.get_positivity}}</span>
-           <span class="mood neutral">{{profile.get_neutrality}}</span>
-           <span class="mood negative">{{profile.get_negativity}}</span>
-    </div>
-	</div> <!-- .issue -->
-	{% endfor %}
-
-</div> <!-- .container -->
 {% endblock %}

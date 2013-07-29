@@ -4,20 +4,14 @@
  <script src="/static/js/jquery-1.10.2.min.js"></script>
  <script src="/static/js/Chart.min.js"></script>
 <script>
-
-
-
-	
-
 	$(document).ready(function(){
 		var data_mood = [{{profile.happiness}},{{profile.excitement}},{{profile.tiredness}},{{profile.sadness}},{{profile.boredom}}];
 		draw_mood_chart(data_mood);
 		draw_thumbs_chart({{profile.thumbs_up}}, {{profile.thumbs_down}});
 
 		//format suggestions
-		format_suggestions();
-	});		
-
+		format_text('#suggestions');
+	});
 </script>
 
 {% endblock %}
@@ -40,32 +34,29 @@
 </div> <!-- ./row -->
 
 <div class="row">
-<div class="span6">
+<div class="span12">
 <h2>Freud in retrofreud</h2>
 </div>
 </div>
 
 <div class="row">
-<div class="span4">
+	<div class="span4">
+		<h3>Mood detector</h3>
+			<div id="mood-meter">
+			{% include "moodmeter/profile_ajax.html" %}
+			</div><!-- ./mood-meter -->
 
-<h3>Mood detector</h3>
-		<div id="mood-meter">
-		{% include "moodmeter/profile_ajax.html" %}
-		</div><!-- ./mood-meter -->
-
-</div>
-<div class="span4">
-	<h3>Mood meter</h3>
-	<div id="holder_mood">
-	<canvas id="mood_chart" data-type="Bar" width="300" height="300" style="margin-top: -50px;"></canvas>
-	</div>
-</div>
-<div class="span4"></span>
+	</div><!-- ./span6 -->
+	<div class="span4" style="margin-left:0px;">
+		<div id="holder_mood">
+		<canvas id="mood_chart" data-type="Bar" width="250" height="250" ></canvas>
+		</div> <!-- ./holder mood -->
+	</div><!-- ./span 6 -->
+	<div class="span4"></div>
 </div> <!-- ./row -->
-</div>
 
 <div class="row">
-	<div class="span6">
+	<div class="span12">
 	<h2>Retro evaluation</h2>
 	</div>
 </div>
@@ -78,36 +69,31 @@
 			<button class="btn btn-large btn-success" onclick="add_thumb({{profile.id}}, 1)"><i class="icon-thumbs-up icon-white"> </i>Yeah!</button>
 			<div id="thumbs-score">
 			{% include "moodmeter/profile_thumb_ajax.html" %}
-			</div> 
+			</div>
 		</div>
 	</div>
-	<div class="span4">
-		<h3>Retro meter</h3>
+	<div class="span4" style="margin-left:0px; margin-top:10px;">
 		<div id="holder_thumb">
 		<canvas id="thumbs_chart" width="100" height="100" style="margin-left:80px;"></canvas>
 		</div>
 	</div>
+	<div class="span4"></div>
+
 </div>
 
 <div class="row">
 	<div class="span6">
-
-		<h3>Improvement suggestions?</h3>
-		<div id="suggestions">{% include "moodmeter/profile_suggestion_ajax.html" %}
-		</div>
-		<div>
-		<a class="btn" data-toggle="modal" href="#improvements">Add suggestions</a>
-		</div>
-
+		<h2>Improvement suggestions?</h2>
+		<a class="btn" data-toggle="modal" href="#improvements" style="margin-bottom:10px;">Add suggestions</a>
+		<div id="suggestions">{% include "moodmeter/profile_suggestion_ajax.html" %}</div>
 		<div id="improvements" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 		  <div class="modal-header">
 		    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
 		    <h3 id="myModalLabel">Enter suggested improvements</h3>
 		  </div>
 		  <div class="modal-body">
-			
 			<form id="retro_suggestions" name="retro_suggestions">{% csrf_token %}
-			<textarea id="activities" name="activities" rows=5></textarea>
+			<textarea id="activities" name="activities" rows="10" cols="60">{{profile.improvements}}</textarea>
 			</form>
 		  </div>
 		  <div class="modal-footer">
@@ -117,14 +103,8 @@
 		</div>
 
 	</div>
-			<div class="span2">
-			</div>
+	<div class="span2">
+	</div>
 </div>
-
-
-
-		
-
-
 {% endblock %}
 

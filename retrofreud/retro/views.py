@@ -1,17 +1,64 @@
 from django.core.context_processors import csrf
 from django.shortcuts import render, get_object_or_404
+from django.http import HttpResponseRedirect
 from django.views.decorators.csrf import requires_csrf_token
-from retro.models import RetroIssue
+from retro.models import RetroIssue, RetroIssueModelForm
+
+
+#sam naredi validacijo
+def add(request):
+	template = 'retro/new_issue_dialog.html'
+	form = RetroIssueModelForm()
+	if request.method == 'POST':
+		form = RetroIssueModelForm(request.POST)
+		if form.is_valid():
+			form.save()
+			return HttpResponseRedirect('/issues/')
+	ctx = {'form' : form}
+	return render(request, template, ctx)
 
 
 def index(request):
-	issues = RetroIssue.objects.all()
+
+	inc_solved = False
+	if request.method == 'GET':
+		if request.GET.get('solved'):
+			inc_solved = True
+
+	if inc_solved:
+		issues = RetroIssue.objects.all()
+	else:
+		issues = RetroIssue.objects.all().filter(solved=False)
 	return render(request,'retro/index.html', {'issues': issues})
+
+def sort(request, sort_column):
+
+	template = 'retro/index_ajax.html'
+	include_solved = False
+
+	if request.GET.get('solved'):
+		include_solved = bool(request.GET.get('solved'))
+
+	if include_solved:
+		issues = RetroIssue.objects.order_by(sort_column)
+	else:
+		issues = RetroIssue.objects.filter(solved=False).order_by(sort_column)
+
+	#return redirect(request, 'index', {'issues': issues})
+	return render(request, template, {'issues': issues})
+
 
 # positive or negative profile, decide which emotions are in which profile
 def issue(request, id):
+
+	template = 'retro/issue.html'
 	issue = get_object_or_404(RetroIssue,id=id)
-	return render(request, 'retro/issue.html', {'issue':issue})
+
+	if request.is_ajax():
+		template = 'retro/issue_ajax.html'
+
+	return render(request, template, {'issue':issue})
+
 
 
 def vote(request, id):
@@ -50,7 +97,7 @@ def reopen(request, id):
 
 @requires_csrf_token
 def update(request, id):
-	issue = 	get_object_or_404(RetroIssue,id=id)
+	issue = get_object_or_404(RetroIssue,id=id)
 	c = {}
 	c.update(csrf(request))
 	template = "retro/issue.html"
@@ -61,3 +108,4 @@ def update(request, id):
 		issue.save()
 
 	return render(request, template, {'issue':issue})
+

@@ -73,13 +73,14 @@ def update(request, id):
 	return render(request, template, {'profile':profile})
 
 
-def profile(request, id):
+def profile(request, id, action='base'):
 	profile = 	get_object_or_404(MoodProfile,id=id)
 
 	template = 'moodmeter/profile.html'
 
 	if request.is_ajax():
-		part = request.GET.get('part')
+		#part = request.GET.get('part')
+		part = action
 		if  part == 'mood':
 			template = "moodmeter/profile_ajax.html"
 		elif part == 'thumbs':

@@ -1,0 +1,28 @@
+<div class="row-fluid" id="issue_list">
+	<div class="span8 nice-and-round">
+		{% for issue in issues %}
+		<div class="row-fluid issue">
+		<div class="span8">
+				<a {% if issue.solved %}class="solved"{% endif %} href="/issues/{{issue.id}}/">
+				<div class="issue-info" href="/issues/{{issue.id}}/">
+				<div class="issue-title">{{issue.title}}</div>
+				<div class="issue-details">
+				<small><time datetime="{{issue.created|date:"c"}}">
+				{{issue.created|date}}
+				</time></small></div> <!-- .details -->
+			</div> <!-- .issue-info -->
+			</a>
+		</div><!--.span-->
+		<div class="span4 issue-nav">
+			<div class="btn-group">
+				<button class="btn btn-small" onclick="vote({{issue.id}},1);">&nbsp;+&nbsp;</button> <button class="btn btn-small" onclick="vote({{issue.id}},-100);">&nbsp;0&nbsp;</button>
+				<button class="btn btn-small" onclick="vote({{issue.id}},-1);">&nbsp;-&nbsp;</button>
+			</div><!-- .btn-group -->
+			<div class="issue-count">{{issue.votes}}</div>
+		</div> <!-- span2 -->
+		</div> <!-- .row issue -->
+		{% endfor %}
+	</div> <!-- .span8-->
+	<div class="span4"></div>
+</div> <!-- .row -->
+

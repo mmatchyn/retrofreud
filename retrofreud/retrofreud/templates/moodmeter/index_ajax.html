@@ -1,0 +1,19 @@
+{% for profile in profiles %}
+<div class="row-fluid issue">
+	<div class="span8">
+		<a href="/moodmeter/{{profile.id}}/">
+		<span class="issue-title">{{profile.title}}</span>
+		<span class="issue-details">
+		<small><time datetime="{{profile.created|date:"c"}}">
+		{{profile.created|date}}
+		</time></small>
+		</span>
+	</a>
+</div> <!-- ./inside span8 -->
+<div class="span4 issue-nav">
+       <span class="mood positive">{{profile.get_positivity}}</span>
+       <span class="mood neutral">{{profile.get_neutrality}}</span>
+       <span class="mood negative">{{profile.get_negativity}}</span>
+</div> <!-- .span4 -->
+</div> <!-- ./inside row -->
+{% endfor %}

@@ -1,5 +1,7 @@
 from django.db import models
 from django.core.urlresolvers import reverse
+from django import forms
+
 
 class RetroIssue (models.Model):
 	title = models.CharField(max_length=255)
@@ -15,4 +17,9 @@ class RetroIssue (models.Model):
 
 	class Meta:
 		#ordering = ["solved", "-votes"]
-		ordering = ["created", "-votes"]
+		ordering = ["-created", "-votes"]
+
+class RetroIssueModelForm(forms.ModelForm):
+	class Meta:
+		model = RetroIssue
+		fields = ["title","details"]
