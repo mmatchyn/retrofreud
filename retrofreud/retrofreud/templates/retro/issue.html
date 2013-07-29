@@ -60,11 +60,10 @@
 <div class="row">
 	<div class="span6">
 	<h2>Actions</h2>
-	<div id="suggestions">{{issue.actions}}</div>
-
-	<div>
-		<button class="btn" data-toggle="modal" href="#improvements">Add actions</button>
+		<div>
+		<button class="btn" data-toggle="modal" href="#improvements" style="margin-bottom:10px;">Add actions</button>
 		</div>
+	<div id="suggestions">{% include 'retro/issue_actions_ajax.html' %}</div>
 
 		<div id="improvements" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 		  <div class="modal-header">

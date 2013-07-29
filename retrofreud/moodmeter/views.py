@@ -13,7 +13,7 @@ def index(request):
 	return render(request, 'moodmeter/index.html', {'profiles': profiles})
 
 def vote(request, id):
-	profile = 	get_object_or_404(MoodProfile,id=id)
+	profile = get_object_or_404(MoodProfile,id=id)
 	template = 'moodmeter/profile.html'
 
 	if request.is_ajax():
@@ -74,18 +74,16 @@ def update(request, id):
 
 
 def profile(request, id, action='base'):
-	profile = 	get_object_or_404(MoodProfile,id=id)
+	profile = get_object_or_404(MoodProfile,id=id)
 
 	template = 'moodmeter/profile.html'
 
 	if request.is_ajax():
-		#part = request.GET.get('part')
-		part = action
-		if  part == 'mood':
+		if  action == 'mood':
 			template = "moodmeter/profile_ajax.html"
-		elif part == 'thumbs':
+		elif action == 'thumbs':
 			template = "moodmeter/profile_thumb_ajax.html"
-		elif part == 'sug':
+		elif action == 'sug':
 			template = "moodmeter/profile_suggestion_ajax.html"
-	
+
 	return render(request, template, {'profile':profile})

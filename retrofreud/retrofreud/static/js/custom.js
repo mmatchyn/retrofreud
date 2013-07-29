@@ -1,18 +1,15 @@
 function vote(issue_id, inc) {
 	$.get("/issues/vote/" + issue_id + "/", {'inc':inc}, function(){
-		location.reload(true);
+		$('#issue_list').load('/issues/vote/');
 	});
 }
 
 function sort_issues(path) {
 
 	if($('#all_solved').closest('button').hasClass('active')) {
-		console.log('Yay!')
 		path += '?solved=true';
-		
 	}
 	$('#issue_list').load(path);
-
 }
 
 function vote_mood(profile_id, mood, inc) {
@@ -25,11 +22,8 @@ function vote_mood(profile_id, mood, inc) {
 			new_data.push(parseInt($('#tired_score').text()));
 			new_data.push(parseInt($('#sad_score').text()));
 			new_data.push(parseInt($('#bored_score').text()));
-
 			draw_mood_chart(new_data);
-
 		});
-
 	});
 }
 
@@ -38,7 +32,6 @@ function add_thumb(profile_id, inc) {
 		$("#thumbs-score").load( "/moodmeter/thumbs/" + profile_id + "/", function() {
 			var downs = parseInt($('#thumbs_down').text());
 			var ups = parseInt($('#thumbs_up').text());
-
 			draw_thumbs_chart(ups,downs);
 		});
 	});
@@ -68,13 +61,13 @@ function draw_mood_chart(mood_data) {
 		var ctx = $("#mood_chart").get(0).getContext("2d");
 		var myNewChart = new Chart(ctx).Radar(data, options);
 
-	};	
+	};
 
 function draw_thumbs_chart(ups, downs) {
 
 		var data = [{value: ups, color:"#5fbe5f"},
 			{value : downs, color : "#faaa38"}]
-		
+
 		var options = {
 			segmentStrokeColor : "#f6e3bb",
 			segmentStrokeWidth : 1,
@@ -82,24 +75,16 @@ function draw_thumbs_chart(ups, downs) {
 		}
 		var ctx = $("#thumbs_chart").get(0).getContext("2d");
 		var myNewChart = new Chart(ctx).Doughnut(data, options);
-
-	};	
+	};
 
 
 function format_text(elem) {
 	var txt = $(elem).html();
 
-	console.log(elem);
-
-	if(txt.length > 0) {
-		console.log($(elem).html().length);
-		console.log('Before:' + $(elem).html())
+	if( txt.length > 0) {
 		var str = $(elem).html().replace(/\n/g,"</li><li>")
-		console.log(str)
 		str = str.replace(/(<li><\/li>)+/g,"</ul><ul>");
-		console.log(str)
 		str = "<ul><li>" + str + "</li></ul>"
-		console.log('Final: ' + str)
 		$("#suggestions").html(str);
 	} else {
 		$("#suggestions").html('<span class="issue-default-text">Not defined yet.</span>')
@@ -122,7 +107,6 @@ function update_issue_status(id)
 }
 
 function close_issue(id, action) {
-
 	if(action == 1) {
 		$.get('/issues/close/' + id + '/', {}, function() {
 			update_issue_status(id);
@@ -138,7 +122,9 @@ function close_issue(id, action) {
 function updateActions(id)
 {
 	$.post("/issues/update/" + id + "/", $('#retro_actions').serialize(), function() {
-		location.reload(true);
+		$("#suggestions").load( "/issues/actions/" + id + "/", function() {
+			format_text('#suggestions');
+		});
 	});
 }
 

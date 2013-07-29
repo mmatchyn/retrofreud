@@ -19,12 +19,10 @@ def add(request):
 
 
 def index(request):
-
 	inc_solved = False
 	if request.method == 'GET':
 		if request.GET.get('solved'):
 			inc_solved = True
-
 	if inc_solved:
 		issues = RetroIssue.objects.all()
 	else:
@@ -55,22 +53,22 @@ def issue(request, id):
 	issue = get_object_or_404(RetroIssue,id=id)
 
 	if request.is_ajax():
-		template = 'retro/issue_ajax.html'
+		template = "retro/issue_actions_ajax.html"
 
 	return render(request, template, {'issue':issue})
 
 
 
-def vote(request, id):
+def vote(request, id=None):
+	if request.GET.get('inc'):
+		inc = int(request.GET.get('inc'))
+		issue = get_object_or_404(RetroIssue,id=id)
+		new_value = issue.votes + inc
+		issue.votes = new_value if new_value > 0 else 0
+		issue.save()
 
-	inc = int(request.GET.get('inc'))
-	issue = get_object_or_404(RetroIssue,id=id)
-	new_value = issue.votes + inc
-	issue.votes = new_value if new_value > 0 else 0
-	issue.save()
-
-	issues = RetroIssue.objects.filter()
-	return render(request, 'retro/index.html', {'issues':issues})
+	issues = RetroIssue.objects.filter(solved=False)
+	return render(request, 'retro/index_ajax.html', {'issues':issues})
 
 
 
